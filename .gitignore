@@ -1,0 +1,31 @@
+# Build directories & target outputs
+target/
+**/target/
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+**/build/
+
+# Python cache & virtual environments
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# IDE files & System files
+.idea/
+.vscode/
+*.suo
+*.user
+*.userossc
+*.sln.docstates
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

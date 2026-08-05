@@ -1,0 +1,43 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: healthcare-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/medisphere
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: healthcare-vitals-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.medisphere.healthcare.dto"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/medisphere
+          jwk-set-uri: http://localhost:9090/realms/medisphere/protocol/openid-connect/certs
+
+vitals:
+  kafka:
+    topic: vitals-stream
+  simulation:
+    enabled: true
+    interval-ms: 2000
+
+logging:
+  level:
+    com.medisphere.healthcare: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

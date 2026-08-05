@@ -1,0 +1,27 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: auth-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/medisphere
+          jwk-set-uri: http://localhost:9090/realms/medisphere/protocol/openid-connect/certs
+
+keycloak:
+  auth-server-url: http://localhost:9090
+  realm: medisphere
+  client-id: medisphere-app
+  token-uri: http://localhost:9090/realms/medisphere/protocol/openid-connect/token
+
+logging:
+  level:
+    com.medisphere.auth: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

@@ -1,0 +1,77 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth, /api/auth/**
+
+        - id: healthcare-patients
+          uri: lb://healthcare-service
+          predicates:
+            - Path=/api/patients, /api/patients/**
+
+        - id: healthcare-consent
+          uri: lb://healthcare-service
+          predicates:
+            - Path=/api/consent, /api/consent/**
+
+        - id: healthcare-dashboard
+          uri: lb://healthcare-service
+          predicates:
+            - Path=/api/dashboard, /api/dashboard/**
+
+        - id: healthcare-vitals
+          uri: lb://healthcare-service
+          predicates:
+            - Path=/api/vitals, /api/vitals/**
+
+        - id: healthcare-audit
+          uri: lb://healthcare-service
+          predicates:
+            - Path=/api/audit, /api/audit/**
+
+        - id: fhir-service
+          uri: lb://fhir-service
+          predicates:
+            - Path=/api/fhir, /api/fhir/**
+
+        - id: prediction-service
+          uri: lb://prediction-service
+          predicates:
+            - Path=/api/prediction, /api/prediction/**
+
+        - id: explainability-service
+          uri: lb://explainability-service
+          predicates:
+            - Path=/api/explanation, /api/explanation/**
+
+        - id: model-service
+          uri: lb://model-service
+          predicates:
+            - Path=/api/model, /api/model/**
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

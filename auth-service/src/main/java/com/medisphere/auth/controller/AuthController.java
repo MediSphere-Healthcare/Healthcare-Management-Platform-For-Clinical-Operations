@@ -4,11 +4,13 @@ import com.medisphere.auth.dto.LoginRequest;
 import com.medisphere.auth.dto.LoginResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
@@ -47,7 +49,7 @@ public class AuthController {
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                     .bodyValue(formData)
                     .retrieve()
-                    .bodyToMono(Map.class)
+                    .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                     .block();
 
             if (tokenResponse == null) {
@@ -128,18 +130,21 @@ public class AuthController {
                             .with("client_id", clientId)
                             .with("refresh_token", refreshToken))
                     .retrieve()
-                    .bodyToMono(Map.class)
+                    .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                     .block();
 
             if (tokenResponse == null) {
                 return ResponseEntity.status(401).body(Map.of("error", "Token refresh failed"));
             }
 
+            Number expiresInNum = (Number) tokenResponse.get("expires_in");
+            int expiresIn = expiresInNum != null ? expiresInNum.intValue() : 3600;
+
             LoginResponse response = LoginResponse.builder()
                     .accessToken((String) tokenResponse.get("access_token"))
                     .refreshToken((String) tokenResponse.get("refresh_token"))
                     .tokenType((String) tokenResponse.get("token_type"))
-                    .expiresIn((Integer) tokenResponse.get("expires_in"))
+                    .expiresIn(expiresIn)
                     .build();
 
             return ResponseEntity.ok(response);
@@ -150,3 +155,4 @@ public class AuthController {
         }
     }
 }
+

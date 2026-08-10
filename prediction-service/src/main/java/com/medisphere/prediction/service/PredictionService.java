@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class PredictionService {
 
     private final PredictionRepository predictionRepository;

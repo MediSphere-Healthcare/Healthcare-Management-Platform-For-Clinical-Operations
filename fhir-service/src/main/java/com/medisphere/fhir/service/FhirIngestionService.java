@@ -19,6 +19,7 @@ import java.util.*;
 
 @Service
 @Slf4j
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class FhirIngestionService {
 
     private final FhirContext fhirContext = FhirContext.forR4();

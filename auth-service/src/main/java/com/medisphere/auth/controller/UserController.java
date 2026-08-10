@@ -31,8 +31,8 @@ public class UserController {
             List<String> roles = jwt.getClaimAsStringList("roles");
             if (roles == null) {
                 Map<String, Object> realmAccess = jwt.getClaim("realm_access");
-                if (realmAccess != null) {
-                    roles = (List<String>) realmAccess.get("roles");
+                if (realmAccess != null && realmAccess.get("roles") instanceof List<?> rawList) {
+                    roles = rawList.stream().map(Object::toString).toList();
                 }
             }
             userInfo.put("roles", roles != null ? roles : List.of());

@@ -22,6 +22,7 @@ export default function Sidebar({ currentRole, activeTab, setActiveTab, onLogout
   const menuConfig = {
     Patient: [
       { id: 'PatientDashboard', label: 'Dashboard', icon: LayoutDashboard },
+      { id: 'PatientCarePlan', label: 'My Care Plan', icon: Pill },
       { id: 'MyVitals', label: 'My Vitals', icon: Heart },
       { id: 'Devices', label: 'Devices', icon: Smartphone },
       { id: 'History', label: 'History', icon: History },
@@ -32,6 +33,10 @@ export default function Sidebar({ currentRole, activeTab, setActiveTab, onLogout
     ],
     Doctor: [
       { id: 'DoctorDashboard', label: 'Overview', icon: LayoutDashboard },
+      { id: 'CarePlanManagement', label: 'AI Care Plans', icon: FileText },
+      { id: 'OutcomeTracking', label: 'Outcome Tracking', icon: Sliders },
+      { id: 'CarePlanDashboard', label: 'Care Plan Dashboard', icon: LayoutDashboard },
+      { id: 'ValidationScreens', label: 'Validations & Audit', icon: UserCheck },
       { id: 'PatientMonitoring', label: 'Patients', icon: Users },
       { id: 'LiveMonitoring', label: 'Live Monitor', icon: Activity },
       { id: 'AiAnomalyDetection', label: 'AI Anomaly', icon: Activity },
@@ -43,6 +48,8 @@ export default function Sidebar({ currentRole, activeTab, setActiveTab, onLogout
     ],
     Admin: [
       { id: 'AdminDashboard', label: 'Admin Overview', icon: LayoutDashboard },
+      { id: 'CarePlanDashboard', label: 'Care Plan Dashboard', icon: LayoutDashboard },
+      { id: 'ValidationScreens', label: 'Validations & Audit', icon: UserCheck },
       { id: 'ManageDoctors', label: 'Manage Doctors', icon: UserCheck },
       { id: 'ManagePatients', label: 'Manage Patients', icon: Users },
       { id: 'AdminAlertManagement', label: 'System Alert Control', icon: Sliders },

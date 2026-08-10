@@ -20,6 +20,7 @@ public class ExplanationService {
 
     private static final String HEALTHCARE_SERVICE_URL = "http://localhost:8082/api/patients/";
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Explanation generateExplanation(String patientId) {
         log.info("Generating explanation for patient: {}", patientId);
 

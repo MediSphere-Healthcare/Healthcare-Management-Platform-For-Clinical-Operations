@@ -32,6 +32,13 @@ import PatientMedications from './Patient/Medications/PatientMedications';
 import PatientProfile from './Patient/Profile/PatientProfile';
 import PatientSettings from './Patient/Settings/PatientSettings';
 
+// Milestone 4 Care Plan Pages
+import CarePlanManagement from './Doctor/CarePlan/CarePlanManagement';
+import PatientCarePlanView from './Patient/CarePlan/PatientCarePlanView';
+import OutcomeTracking from './Doctor/CarePlan/OutcomeTracking';
+import CarePlanDashboard from './Doctor/CarePlan/CarePlanDashboard';
+import ValidationScreens from './Doctor/CarePlan/ValidationScreens';
+
 // Admin Pages
 import AdminDashboard from './Admin/Dashboard/AdminDashboard';
 import ManageDoctors from './Admin/ManageDoctors/ManageDoctors';
@@ -206,6 +213,22 @@ export default function App() {
           {/* Doctor Portal */}
           {currentRole === 'Doctor' && (
             <>
+              {activeTab === 'CarePlanManagement' && (
+                <CarePlanManagement />
+              )}
+
+              {activeTab === 'OutcomeTracking' && (
+                <OutcomeTracking />
+              )}
+
+              {activeTab === 'CarePlanDashboard' && (
+                <CarePlanDashboard />
+              )}
+
+              {activeTab === 'ValidationScreens' && (
+                <ValidationScreens />
+              )}
+
               {activeTab === 'DoctorDashboard' && (
                 <DoctorDashboard
                   patients={patients}
@@ -288,6 +311,10 @@ export default function App() {
                 />
               )}
 
+              {activeTab === 'PatientCarePlan' && (
+                <PatientCarePlanView />
+              )}
+
               {activeTab === 'MyVitals' && (
                 <MyVitals vitals={currentVitals} currentUser={currentUser} />
               )}
@@ -328,6 +355,14 @@ export default function App() {
                   alerts={alerts}
                   onSelectTab={setActiveTab}
                 />
+              )}
+
+              {activeTab === 'CarePlanDashboard' && (
+                <CarePlanDashboard />
+              )}
+
+              {activeTab === 'ValidationScreens' && (
+                <ValidationScreens />
               )}
 
               {activeTab === 'ManageDoctors' && (

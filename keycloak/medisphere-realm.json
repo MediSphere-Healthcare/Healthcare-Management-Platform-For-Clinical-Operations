@@ -1,0 +1,106 @@
+{
+  "realm": "medisphere",
+  "enabled": true,
+  "registrationAllowed": true,
+  "resetPasswordAllowed": true,
+  "rememberMe": true,
+  "sslRequired": "external",
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Administrator role"
+      },
+      {
+        "name": "PROVIDER",
+        "description": "Healthcare provider / Doctor role"
+      },
+      {
+        "name": "PATIENT",
+        "description": "Patient role"
+      },
+      {
+        "name": "DOCTOR",
+        "description": "Doctor role"
+      },
+      {
+        "name": "USER",
+        "description": "Standard user role"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "medisphere-app",
+      "name": "MediSphere Application Client",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ],
+      "fullScopeAllowed": true
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "email": "admin@medisphere.com",
+      "firstName": "Admin",
+      "lastName": "User",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "username": "provider",
+      "enabled": true,
+      "email": "provider@medisphere.com",
+      "firstName": "Sarah",
+      "lastName": "Doctor",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "provider123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "PROVIDER"
+      ]
+    },
+    {
+      "username": "patient",
+      "enabled": true,
+      "email": "patient@medisphere.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "patient123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "PATIENT"
+      ]
+    }
+  ]
+}

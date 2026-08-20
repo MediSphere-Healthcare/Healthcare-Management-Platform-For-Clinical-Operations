@@ -96,18 +96,19 @@ public class AuthController {
     }
 
     private LoginResponse checkDevFallback(LoginRequest request) {
-        if ("provider".equals(request.getUsername()) && "provider123".equals(request.getPassword())) {
+        String username = request.getUsername() != null ? request.getUsername().toLowerCase().trim() : "";
+        String password = request.getPassword();
+
+        boolean isMatch = 
+            ("provider".equals(username) && "provider123".equals(password)) ||
+            ("patient".equals(username) && "patient123".equals(password)) ||
+            ("admin".equals(username) && "admin123".equals(password)) ||
+            (username.endsWith("@medisphere.org") && ("Passkey@2026".equals(password) || "admin123".equals(password) || "provider123".equals(password)));
+
+        if (isMatch) {
             log.info("Using developer fallback login for user: {}", request.getUsername());
             return LoginResponse.builder()
-                    .accessToken("mock-dev-jwt-token-provider")
-                    .refreshToken("mock-dev-refresh-token")
-                    .tokenType("Bearer")
-                    .expiresIn(3600)
-                    .build();
-        } else if ("patient".equals(request.getUsername()) && "patient123".equals(request.getPassword())) {
-            log.info("Using developer fallback login for user: {}", request.getUsername());
-            return LoginResponse.builder()
-                    .accessToken("mock-dev-jwt-token-patient")
+                    .accessToken("mock-dev-jwt-token-" + username.replaceAll("[^a-zA-Z0-9]", ""))
                     .refreshToken("mock-dev-refresh-token")
                     .tokenType("Bearer")
                     .expiresIn(3600)
